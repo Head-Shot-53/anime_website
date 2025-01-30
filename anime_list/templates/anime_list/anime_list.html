@@ -14,11 +14,22 @@
                 <p>{{ anime.description }}</p>
                 <p>Рік випуску: {{ anime.release_year }}</p>
                 <p>Рейтинг: {{ anime.rating }}</p>
+                <p>Категорії: 
+                    {% for category in anime.categories.all %}
+                        {{ category.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
                 {% if anime.image_url %}
                     <img src="{{ anime.image_url }}" alt="{{ anime.title }}" width="200">
                 {% endif %}
             </li>
         {% endfor %}
     </ul>
+    <h2>Категорії:</h2>
+<ul>
+    {% for category in categories %}
+        <li><a href="{% url 'anime_by_category' category.id %}">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
 </body>
 </html>
