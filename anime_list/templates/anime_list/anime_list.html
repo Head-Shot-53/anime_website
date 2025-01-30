@@ -9,9 +9,12 @@
     <h1>Список аніме</h1>
     <ul>
         {% for anime in animes %}
-            <li>
+            <div>
+                {% if anime.image %}
+                    <img src="{{ anime.image.url }}" alt="{{ anime.title }}" width="150">
+                {% endif %}
                 <h2><a href="{% url 'anime_detail' anime.id %}">{{ anime.title }}</a></h2>
-                <p>{{ anime.description }}</p>
+                <p>{{ anime.description|truncatewords:20 }}</p>
                 <p>Рік випуску: {{ anime.release_year }}</p>
                 <p>Рейтинг: {{ anime.rating }}</p>
                 <p>Категорії: 
@@ -19,17 +22,15 @@
                         {{ category.name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </p>
-                {% if anime.image_url %}
-                    <img src="{{ anime.image_url }}" alt="{{ anime.title }}" width="200">
-                {% endif %}
-            </li>
+            </div>
         {% endfor %}
     </ul>
+    
     <h2>Категорії:</h2>
-<ul>
-    {% for category in categories %}
-        <li><a href="{% url 'anime_by_category' category.id %}">{{ category.name }}</a></li>
-    {% endfor %}
-</ul>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'anime_by_category' category.id %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
