@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список аніме</title>
+</head>
+<body>
+    <h1>Список аніме</h1>
+    <ul>
+        {% for anime in animes %}
+            <li>
+                <h2><a href="{% url 'anime_detail' anime.id %}">{{ anime.title }}</a></h2>
+                <p>{{ anime.description }}</p>
+                <p>Рік випуску: {{ anime.release_year }}</p>
+                <p>Рейтинг: {{ anime.rating }}</p>
+                {% if anime.image_url %}
+                    <img src="{{ anime.image_url }}" alt="{{ anime.title }}" width="200">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

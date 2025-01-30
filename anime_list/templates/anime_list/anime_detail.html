@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ anime.title }}</title>
+</head>
+<body>
+    <h1>{{ anime.title }}</h1>
+    <p>{{ anime.description }}</p>
+    <p>Рік випуску: {{ anime.release_year }}</p>
+    <p>Рейтинг: {{ anime.rating }}</p>
+    {% if anime.image_url %}
+        <img src="{{ anime.image_url }}" alt="{{ anime.title }}" width="300">
+    {% endif %}
+    <br>
+    <a href="{% url 'anime_list' %}">🔙 Назад до списку</a>
+</body>
+</html>
