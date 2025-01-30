@@ -11,8 +11,8 @@ class Anime(models.Model):
     description = models.TextField() # опис
     release_year = models.IntegerField() # дата виходу
     rating = models.FloatField() # рейтинг
-    image_url = models.URLField(blank=True,null=True) # Посилання на обкладинку
     categories = models.ManyToManyField(Category, related_name='animes')
+    image = models.ImageField(upload_to='anime_images/', blank = True, null = True) # поле для зображення 
 
     def __str__(self):
         return self.title # вивід назви у Djsngo admin
