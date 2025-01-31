@@ -1,36 +1,52 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список аніме</title>
-</head>
-<body>
-    <h1>Список аніме</h1>
-    <ul>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="my-4">Список аніме</h1>
+
+    <!-- Форма пошуку -->
+    <form method="get" action="{% url 'anime_list' %}">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Шукати</button>
+    </form>
+
+    <!-- Список аніме -->
+    <div>
         {% for anime in animes %}
-            <div>
-                {% if anime.image %}
-                    <img src="{{ anime.image.url }}" alt="{{ anime.title }}" width="150">
-                {% endif %}
-                <h2><a href="{% url 'anime_detail' anime.id %}">{{ anime.title }}</a></h2>
-                <p>{{ anime.description|truncatewords:20 }}</p>
-                <p>Рік випуску: {{ anime.release_year }}</p>
-                <p>Рейтинг: {{ anime.rating }}</p>
-                <p>Категорії: 
-                    {% for category in anime.categories.all %}
-                        {{ category.name }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </p>
+            <div class="mb-4">
+                <div class="card">
+                    {% if anime.image %}
+                        <img src="{{ anime.image.url }}" class="card-img-top anime-icon" alt="{{ anime.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ anime.title }}</h5>
+                        <p class="card-text">{{ anime.description|truncatewords:15 }}</p>
+                        <a href="{% url 'anime_detail' anime.id %}" class="btn btn-primary">Деталі</a>
+                    </div>
+                </div>
             </div>
+        {% empty %}
+            <p>Нічого не знайдено.</p>
         {% endfor %}
-    </ul>
-    
+    </div>
+
+    <!-- Навігація по сторінках -->
+    <div class="pagination">
+        {% if animes.has_previous %}
+            <a href="?page=1">&laquo; Перша</a>
+            <a href="?page={{ animes.previous_page_number }}">Попередня</a>
+        {% endif %}
+        <span>Сторінка {{ animes.number }} з {{ animes.paginator.num_pages }}</span>
+        {% if animes.has_next %}
+            <a href="?page={{ animes.next_page_number }}">Наступна</a>
+            <a href="?page={{ animes.paginator.num_pages }}">Остання &raquo;</a>
+        {% endif %}
+    </div>
+
+    <!-- Категорії -->
     <h2>Категорії:</h2>
     <ul>
         {% for category in categories %}
             <li><a href="{% url 'anime_by_category' category.id %}">{{ category.name }}</a></li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
