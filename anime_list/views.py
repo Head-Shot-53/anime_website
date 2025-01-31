@@ -44,7 +44,7 @@ def anime_detail(request, anime_id):
     average_rating = anime.ratings.all().aggregate(Avg('score'))['score__avg']
     
     # Повертаємо шаблон з передачею аніме і середнього рейтингу
-    return render(request, 'anime_list/anime_detail.html', {'anime': anime, 'average_rating': average_rating})
+    return render(request, 'anime_list/anime_detail.html', {'anime': anime,'average_rating': average_rating})
 
 def anime_by_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
