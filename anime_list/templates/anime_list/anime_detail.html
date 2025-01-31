@@ -1,19 +1,51 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ anime.title }}</title>
-</head>
-<body>
-    <h1>{{ anime.title }}</h1>
-    <p>{{ anime.description }}</p>
-    <p>Рік випуску: {{ anime.release_year }}</p>
-    <p>Рейтинг: {{ anime.rating }}</p>
-    {% if anime.image_url %}
-        <img src="{{ anime.image_url }}" alt="{{ anime.title }}" width="300">
-    {% endif %}
-    <br>
-    <a href="{% url 'anime_list' %}">🔙 Назад до списку</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="my-4">{{ anime.title }}</h1>
+    
+    <div class="container anime-container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                {% if anime.image %}
+                    <img src="{{ anime.image.url }}" class="img-fluid" alt="{{ anime.title }}">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <p><strong>Рік випуску:</strong> {% if anime.year %}{{ anime.year }}{% else %}Немає даних{% endif %}</p>
+                <p><strong>Жанри:</strong> {% if anime.genre %}{{ anime.genre }}{% else %}Немає даних{% endif %}</p>
+                <p><strong>Опис:</strong> {% if anime.description %}{{ anime.description }}{% else %}Немає опису{% endif %}</p>
+                <p><strong>Середній рейтинг:</strong> 
+                    {% if average_rating %}
+                        {{ average_rating|floatformat:2 }}
+                    {% else %}
+                        Оцінок ще немає
+                    {% endif %}
+                </p>
+
+                <!-- Форма для оцінки -->
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="score" class="form-label">Ваша оцінка:</label>
+                        <select name="score" id="score" class="form-select">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Відправити оцінку</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Кнопка для повернення до списку -->
+    <a href="{% url 'anime_list' %}" class="btn btn-secondary mt-4">🔙 Назад до списку</a>
+{% endblock %}
