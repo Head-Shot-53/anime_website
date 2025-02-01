@@ -11,8 +11,14 @@
                 {% endif %}
             </div>
             <div class="col-md-8">
-                <p><strong>Рік випуску:</strong> {% if anime.year %}{{ anime.year }}{% else %}Немає даних{% endif %}</p>
-                <p><strong>Жанри:</strong> {% if anime.genre %}{{ anime.genre }}{% else %}Немає даних{% endif %}</p>
+                <p><strong>Рік випуску:</strong> {% if anime.release_year %}{{ anime.release_year }}{% else %}Немає даних{% endif %}</p>
+                <p><strong>Жанри:</strong> 
+                    {% for category in anime.categories.all %}
+                        {{ category.name }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        Немає даних
+                    {% endfor %}
+                </p>
                 <p><strong>Опис:</strong> {% if anime.description %}{{ anime.description }}{% else %}Немає опису{% endif %}</p>
                 <p><strong>Середній рейтинг:</strong> 
                     {% if average_rating %}
