@@ -13,7 +13,7 @@ def anime_list(request):
         query = form.cleaned_data['query']
         animes = animes.filter(title__icontains=query)  # Фільтруємо аніме по назві
 
-    paginator = Paginator(animes, 10)  # По 10 аніме на сторінку
+    paginator = Paginator(animes, 5)  # По 10 аніме на сторінку
     page_number = request.GET.get('page')  # Отримуємо номер сторінки з GET параметрів
     animes_page = paginator.get_page(page_number)  # Отримуємо сторінку аніме
 
