@@ -13,7 +13,7 @@ def anime_list(request):
         query = form.cleaned_data['query']
         animes = animes.filter(title__icontains=query)  # Фільтруємо аніме по назві
 
-    paginator = Paginator(animes, 5)  # По 10 аніме на сторінку
+    paginator = Paginator(animes, 8)  # По 10 аніме на сторінку
     page_number = request.GET.get('page')  # Отримуємо номер сторінки з GET параметрів
     animes_page = paginator.get_page(page_number)  # Отримуємо сторінку аніме
 
@@ -50,3 +50,9 @@ def anime_by_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     animes = category.animes.all()
     return render(request, 'anime_list/anime_list.html', {'animes':animes, 'select_category':category})
+
+
+def category_detail(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    animes = category.animes.all()  # Отримуємо всі аніме в цій категорії
+    return render(request, 'anime_list/category_detail.html', {'category': category, 'animes': animes})
