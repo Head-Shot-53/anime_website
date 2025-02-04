@@ -19,6 +19,7 @@
                         Немає даних
                     {% endfor %}
                 </p>
+                <p><strong>Кількість серій:</strong>{% if anime.number_of_series %}{{ anime.number_of_series}}{% else %}Не вказано{% endif %}</p>
                 <p><strong>Опис:</strong> {% if anime.description %}{{ anime.description }}{% else %}Немає опису{% endif %}</p>
                 <p><strong>Середній рейтинг:</strong> 
                     {% if average_rating %}
