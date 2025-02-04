@@ -10,18 +10,16 @@
     </form>
 
     <!-- Список аніме -->
-    <div>
+    <div class="anime-container">
         {% for anime in animes %}
-            <div class="mb-4">
-                <div class="card">
-                    {% if anime.image %}
-                        <img src="{{ anime.image.url }}" class="card-img-top anime-icon" alt="{{ anime.title }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ anime.title }}</h5>
-                        <p class="card-text">{{ anime.description|truncatewords:15 }}</p>
-                        <a href="{% url 'anime_detail' anime.id %}" class="btn btn-primary">Деталі</a>
-                    </div>
+            <div class="anime-item">
+                {% if anime.image %}
+                    <img src="{{ anime.image.url }}" class="anime-icon" alt="{{ anime.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ anime.title }}</h5>
+                    <p class="card-text">{{ anime.description|truncatewords:15 }}</p>
+                    <a href="{% url 'anime_detail' anime.id %}" class="btn btn-primary">Деталі</a>
                 </div>
             </div>
         {% empty %}
@@ -32,21 +30,21 @@
     <!-- Навігація по сторінках -->
     <div class="pagination">
         {% if animes.has_previous %}
-            <a href="?page=1">&laquo; Перша</a>
-            <a href="?page={{ animes.previous_page_number }}">Попередня</a>
+            <a href="?page=1" class="page-link">&laquo; Перша</a>
+            <a href="?page={{ animes.previous_page_number }}" class="page-link">Попередня</a>
         {% endif %}
-        <span>Сторінка {{ animes.number }} з {{ animes.paginator.num_pages }}</span>
+        <span class="page-link">Сторінка {{ animes.number }} з {{ animes.paginator.num_pages }}</span>
         {% if animes.has_next %}
-            <a href="?page={{ animes.next_page_number }}">Наступна</a>
-            <a href="?page={{ animes.paginator.num_pages }}">Остання &raquo;</a>
+            <a href="?page={{ animes.next_page_number }}" class="page-link">Наступна</a>
+            <a href="?page={{ animes.paginator.num_pages }}" class="page-link">Остання &raquo;</a>
         {% endif %}
     </div>
 
-    <!-- Категорії -->
-    <h2>Категорії:</h2>
-    <ul>
+    <!-- Категорії --> 
+     <h2 class="my-4">Категорії:</h2>
+    <div class="categories-container">
         {% for category in categories %}
-            <li><a href="{% url 'anime_by_category' category.id %}">{{ category.name }}</a></li>
+            <a href="{% url 'category_detail' category.id %}" class="category-item">{{ category.name }}</a>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
