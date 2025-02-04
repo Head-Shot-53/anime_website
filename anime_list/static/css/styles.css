@@ -1,6 +1,8 @@
+/* ========================= Головні стилі ========================= */
+
 /* Головний фон (градієнт) */
 body {
-    background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+    background: linear-gradient(to bottom, #f5f7fa, #c3cfe2); /* Градієнтний фон */
     color: #333;
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -8,12 +10,16 @@ body {
     line-height: 1.6;
 }
 
+/* ========================= Заголовки ========================= */
+
 /* Заголовки */
 h1, h2, h3, h5 {
-    color: #2c3e50; /* Темний синій */
+    color: #2c3e50;
     font-weight: 600;
     margin-bottom: 20px;
 }
+
+/* ========================= Основний текст ========================= */
 
 /* Основний текст */
 p, span {
@@ -21,13 +27,17 @@ p, span {
     font-size: 16px;
 }
 
+/* ========================= Стилі для контейнерів ========================= */
+
 /* Контейнер для аніме */
 .anime-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Адаптивна сітка */
-    gap: 25px; /* Відстань між елементами */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Адаптивний розподіл */
+    gap: 25px;
     margin: 20px;
 }
+
+/* ========================= Стилі для елементів аніме ========================= */
 
 /* Стиль для кожного елемента аніме */
 .anime-item {
@@ -39,32 +49,29 @@ p, span {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центруємо вміст */
+    align-items: center;
 }
 
+/* Анімаційні ефекти для елементів при наведенні */
 .anime-item:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px); /* Легке піднімання при наведенні */
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Текст всередині елементів аніме */
-.anime-item h5, 
-.anime-item p {
-    color: #333;
-    font-weight: 500;
-    text-align: center; /* Центруємо текст */
-}
+/* ========================= Стилі для зображень аніме ========================= */
 
 /* Зображення аніме */
 .anime-icon {
-    width: 150px; /* Фіксована ширина */
-    height: 200px; /* Фіксована висота */
-    object-fit: cover; /* Зберігає пропорції зображення */
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
     border-radius: 10px;
     margin-bottom: 15px;
 }
 
-/* Кнопки */
+/* ========================= Кнопки ========================= */
+
+/* Стилі для кнопок */
 .btn, button {
     background: linear-gradient(to right, #6a11cb, #2575fc);
     color: white;
@@ -76,23 +83,29 @@ p, span {
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
+/* Кнопки при наведенні */
 .btn:hover, button:hover {
     background: linear-gradient(to right, #2575fc, #6a11cb);
     transform: scale(1.05);
 }
 
-/* Посилання */
+/* ========================= Посилання ========================= */
+
+/* Стилі для посилань */
 a {
     color: #2575fc;
     text-decoration: none;
     transition: color 0.3s ease-in-out;
 }
 
+/* Посилання при наведенні */
 a:hover {
     color: #6a11cb;
 }
 
-/* Навігація */
+/* ========================= Навігація ========================= */
+
+/* Стилі для навігаційної панелі */
 .navbar {
     background: linear-gradient(to right, #6a11cb, #2575fc);
     padding: 20px;
@@ -101,6 +114,7 @@ a:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Посилання в навігаційній панелі */
 .navbar a {
     color: white;
     font-size: 18px;
@@ -108,17 +122,21 @@ a:hover {
     transition: color 0.3s;
 }
 
+/* Посилання в навігації при наведенні */
 .navbar a:hover {
     color: #ffdd57;
 }
 
-/* Пагінація */
+/* ========================= Пагінація ========================= */
+
+/* Стилі пагінації */
 .pagination {
     display: flex;
     justify-content: center;
     margin-top: 30px;
 }
 
+/* Стилі для посилань пагінації */
 .page-link {
     background-color: #2575fc;
     color: white;
@@ -128,17 +146,21 @@ a:hover {
     margin: 0 5px;
 }
 
+/* Посилання пагінації при наведенні */
 .page-link:hover {
     background-color: #6a11cb;
 }
 
-/* Декоративні анімації */
+/* ========================= Декоративні анімації ========================= */
+
+/* Анімація для елементів */
 @keyframes floating {
     0% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
     100% { transform: translateY(0); }
 }
 
+/* Стилі для зображень у картках аніме */
 .anime-card img {
     border-radius: 12px;
     width: 100%;
@@ -146,20 +168,26 @@ a:hover {
     animation: floating 4s infinite ease-in-out;
 }
 
-/* Стилі для тексту всередині контейнера */
+/* ========================= Стилі для тексту всередині контейнера ========================= */
+
+/* Стилі для тексту в контейнерах */
 .anime-container p, .anime-container span {
     color: #333;
     font-size: 16px;
     margin-bottom: 10px;
 }
 
-/* Спеціальні стилі для індивідуальних елементів: Рік випуску, Жанри, Оцінка */
+/* ========================= Спеціальні стилі для елементів ========================= */
+
+/* Стилі для тексту у окремих елементах */
 .anime-container .col-md-8 p strong {
     color: #2c3e50;
     font-weight: 600;
 }
 
-/* Стилі для оцінки */
+/* ========================= Оцінки та форми ========================= */
+
+/* Стилі для форм оцінок */
 form select {
     width: 100%;
     padding: 10px;
@@ -169,16 +197,110 @@ form select {
     background-color: #f9f9f9;
 }
 
-/* Стилі для кнопки оцінки */
+/* Стилі для кнопки форми оцінки */
 form button {
     margin-top: 15px;
 }
 
-/* Додаткові стилі для тексту */
-.col-md-8 p {
-    color: #333;
+/* ========================= Стилі для категорій ========================= */
+
+/* Стилі для контейнера категорій */
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px;
 }
 
-.col-md-8 p strong {
-    color: #2575fc;
+/* Стилі для кожної категорії */
+.category-item {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: rgb(248, 248, 248);
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Категорії при наведенні */
+.category-item:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+/* Текст категорії - градієнтний ефект */
+.category-item span {
+    color: transparent;
+    background: linear-gradient(to right, #f39c12, #6a11cb, #2575fc); 
+    -webkit-background-clip: text; /* Важливо для застосування градієнта на тексті */
+    font-weight: 500;
+}
+
+/* Анімація для категорій */
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+
+.category-item {
+    animation: float 4s infinite ease-in-out;
+} 
+
+/* ========================= Випадаюче меню ========================= */
+
+/* Випадаюче меню */
+.my-dropdown-menu {
+    display: none; /* Сховати меню за замовчуванням */
+    position: absolute; /* Позиціювання для випадаючого меню */
+    background-color: #4a148c; /* Фон меню */
+    border-radius: 8px; /* Закруглені кути */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тінь */
+    padding: 10px 0; /* Внутрішній відступ */
+    min-width: 200px; /* Мінімальна ширина */
+    z-index: 1000; /* Щоб меню було поверх іншого контенту */
+}
+
+/* Показ меню */
+.my-dropdown-menu.show {
+    display: block; /* Показати меню */
+}
+
+/* Елементи випадаючого меню */
+.my-dropdown-menu .dropdown-item {
+    color: #ffc107; /* Колір тексту */
+    padding: 10px 20px; /* Внутрішні відступи */
+    text-decoration: none; /* Без підкреслення */
+    display: block; /* Зробити елемент блоком для клікабельності */
+    font-weight: bold; /* Жирний шрифт */
+    transition: background-color 0.3s ease; /* Анімація при наведенні */
+}
+
+/* Ефекти при наведенні */
+.my-dropdown-menu .dropdown-item:hover {
+    background-color: #6a1b9a; /* Колір фону при наведенні */
+    color: #ffffff; /* Колір тексту при наведенні */
+}
+
+/* Відключення Bootstrap-стилів */
+.my-dropdown-menu .dropdown-item:focus,
+.my-dropdown-menu .dropdown-item:active {
+    background-color: transparent;
+    color: #ffc107;
+    text-decoration: none;
+}
+
+
+
+@media (max-width: 768px) {
+    .my-dropdown-menu {
+        min-width: 150px; /* Менша ширина */
+    }
+
+    .my-dropdown-menu .dropdown-item {
+        font-size: 14px; /* Менший шрифт */
+        padding: 8px 15px;
+    }
 }
