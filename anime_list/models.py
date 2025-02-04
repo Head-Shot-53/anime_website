@@ -14,6 +14,7 @@ class Anime(models.Model):
     rating = models.FloatField() # рейтинг
     categories = models.ManyToManyField(Category, related_name='animes')
     image = models.ImageField(upload_to='anime_images/', blank = True, null = True) # поле для зображення 
+    number_of_series = models.IntegerField(default=0) # к-ть серій
 
     def __str__(self):
         return self.title # вивід назви у Djsngo admin
