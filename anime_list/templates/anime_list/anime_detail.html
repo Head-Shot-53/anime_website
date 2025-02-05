@@ -49,6 +49,23 @@
                     </div>
                     <button type="submit" class="btn btn-success">Відправити оцінку</button>
                 </form>
+
+                <!-- Додавання в улюблене -->
+                {% if user.is_authenticated %}
+                    <form action="{% url 'toggle_favorite' anime.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-warning">
+                            {% if anime in user.favoriteanime_set.all %}
+                                Видалити з улюблених
+                            {% else %}
+                                Додати в улюблене ❤️
+                            {% endif %}
+                        </button>
+                    </form>
+                {% else %}
+                    <p><a href="{% url 'login' %}">Увійдіть</a>, щоб додавати аніме в улюблене.</p>
+                {% endif %}
+
             </div>
         </div>
     </div>
