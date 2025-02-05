@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Anime, Category, Rating
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Anime, Category, Rating, FavoriteAnime
 from .forms import SearchForm
 from django.core.paginator import Paginator
 from django.db.models import Avg
@@ -62,3 +62,12 @@ def category_detail(request, category_id):
         'animes': animes,
         'categories': Category.objects.all()
     })
+
+# додавання аніме в улюблене
+def toggle_favorite(request, anime_id):
+    anime = get_object_or_404(Anime, id=anime_id)
+    favorite, created = FavoriteAnime.objects.get_or_create(user=request.user, anime = anime)
+
+    if not created:
+        favorite.delete() # видаляє аніме, якщо воно вже було додано
+    return redirect('anime_detail', anime_id = anime.id)
