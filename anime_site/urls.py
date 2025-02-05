@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('anime_list.urls')) # підключаю маршрути з anime_list
+    path('',include('anime_list.urls')), # підключаю маршрути з anime_list
+    path('users/',include('users.urls')), # підклюення маршрутів додатку users
 ]
 
 # Це дозволяє відображати зображення в режимі розробки
