@@ -1,3 +1,11 @@
-<h2>Профіль користувача</h2>
-<p>Привіт, {{ user.username }}!</p>
-<a href="{% url 'logout' %}">Вийти</a>
+<h2 class="text-center mt-4">Профіль користувача</h2>
+
+<div class="card mx-auto mt-3" style="max-width: 400px;">
+    <div class="card-body text-center">
+        <h4 class="card-title">Привіт, {{ user.username }}!</h4>
+        <p class="card-text">Вітаємо у вашому профілі.</p>
+
+        <a href="{% url 'favorite_anime' %}" class="btn btn-primary">Мої улюблені аніме</a>
+        <a href="{% url 'logout' %}" class="btn btn-danger mt-2">Вийти</a>
+    </div>
+</div>
