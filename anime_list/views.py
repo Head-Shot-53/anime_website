@@ -71,3 +71,14 @@ def toggle_favorite(request, anime_id):
     if not created:
         favorite.delete() # видаляє аніме, якщо воно вже було додано
     return redirect('anime_detail', anime_id = anime.id)
+
+
+def favorite_anime(request):
+    favorite_animes = Anime.objects.filter(favoriteanime__user=request.user)
+    return render(request, 'anime_list/favorite_anime.html', {'favorite_animes': favorite_animes})
+
+
+def remove_favorite(request, anime_id):
+    anime = get_object_or_404(FavoriteAnime, user=request.user, anime_id=anime_id)
+    anime.delete()
+    return redirect('favorite_anime')
