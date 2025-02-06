@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Улюблені аніме - AniStream{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">Мої улюблені аніме</h2>
+
+    {% if favorite_animes %}
+        <div class="row">
+            {% for anime in favorite_animes %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="card shadow-sm border-0 rounded text-center">
+                        <div class="d-flex align-items-center justify-content-center" style="height: 250px;">
+                            <img src="{{ anime.image.url }}" class="img-fluid rounded-top" alt="{{ anime.title }}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title font-weight-bold">{{ anime.title }}</h6>
+                            <div class="d-flex justify-content-center mt-2">
+                                <a href="{% url 'anime_detail' anime.id %}" class="btn btn-sm btn-primary me-2">Дивитися</a>
+                                <a href="{% url 'remove_favorite' anime.id %}" class="btn btn-sm btn-danger">×</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center mt-3">У вас ще немає улюблених аніме.</p>
+    {% endif %}
+</div>
+{% endblock %}
