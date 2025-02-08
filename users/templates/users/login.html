@@ -1,6 +1,33 @@
-<h2>Вхід</h2>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Увійти</button>
-</form>
+{% extends 'base.html' %}
+
+{% block title %}Вхід - AniStream{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg border-0 rounded p-4" style="max-width: 400px; width: 100%; background: #f8f9fa;">
+        <h2 class="text-center text-primary mb-4">Вхід</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label fw-bold">Логін</label>
+                {{ form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label for="id_password" class="form-label fw-bold">Пароль</label>
+                {{ form.password }}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-sign-in-alt"></i> Увійти
+            </button>
+        </form>
+
+        <p class="text-center mt-3">
+            Ще не маєте акаунту? <a href="{% url 'register' %}" class="text-primary fw-bold">Зареєструватися</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
