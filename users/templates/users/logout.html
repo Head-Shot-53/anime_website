@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Вихід - AniStream{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Ви успішно вийшли</h2>
+    <p>Дякуємо, що користувались нашим сайтом!</p>
+    <a href="{% url 'anime_list' %}" class="btn btn-primary">На головну</a>
+</div>
+{% endblock %}
