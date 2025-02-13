@@ -7,43 +7,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AniStream{% endblock %}</title>
     
-    <!-- Bootstrap CSS (залишаємо для загального стилю сайту) -->
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    
+
+    <style>
+        /* Базові стилі */
+        html, body {
+            height: 100%;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Темний режим */
+        .dark-mode {
+            background-color: #121212 !important;
+            color: #ffffff !important;
+        }
+
+        .dark-mode .container,
+        .dark-mode .navbar, 
+        .dark-mode .dropdown-menu, 
+        .dark-mode .card {
+            background-color: #1e1e1e !important;
+            border-color: #333 !important;
+        }
+
+        .dark-mode .navbar-light .navbar-nav .nav-link,
+        .dark-mode .dropdown-item {
+            color: #ffffff !important;
+        }
+
+        .dark-mode .dropdown-item:hover {
+            background-color: #333 !important;
+        }
+
+        .dark-mode .btn {
+            background-color: #333 !important;
+            color: #fff !important;
+            border: 1px solid #555 !important;
+        }
+
+        .dark-mode .btn:hover {
+            background-color: #444 !important;
+        }
+
+        /* Темний скролбар */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .dark-mode ::-webkit-scrollbar {
+            background-color: #1e1e1e !important;
+        }
+
+        .dark-mode ::-webkit-scrollbar-thumb {
+            background-color: #555 !important;
+            border-radius: 5px !important;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Список Аніме</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="/">AniStream</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'anime_list' %}">На головну</a></li>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'anime_list' %}">🔹 Головна</a></li>
                     
-                    <!-- Випадаюче меню для категорій -->
+                    <!-- Випадаюче меню для жанрів -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button">
-                            Категорії
+                            📌 Жанри
                         </a>
-                        <ul class="dropdown-menu my-dropdown-menu" id="categoryMenu">
+                        <ul class="dropdown-menu" id="categoryMenu">
                             {% for category in categories %}
                                 <li><a class="dropdown-item" href="{% url 'category_detail' category.id %}">{{ category.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-
-                    <!-- Вхід / Вихід / Профіль -->
+        
+                    <li class="nav-item"><a class="nav-link" href="{% url 'popular_anime' %}">🔥 Популярні</a></li>
+        
+                    <!-- Пошук -->
+                    <li class="nav-item">
+                        <form class="d-flex" action="{% url 'search' %}" method="GET">
+                            <input id="searchInput" class="form-control me-2" type="search" name="q" placeholder="🔍 Пошук аніме..." aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit">🔍</button>
+                        </form>
+                        <div id="searchResults" class="search-dropdown"></div>  <!-- Контейнер для результатів -->
+                    </li>
+        
+                    <!-- Темний режим -->
+                    <div class="form-check form-switch position-fixed top-0 end-0 p-3">
+                        <input class="form-check-input" type="checkbox" id="darkModeToggle">
+                        <label class="form-check-label" for="darkModeToggle">🌙</label>
+                    </div>
+        
+                    <!-- Профіль -->
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Мій профіль</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Вийти</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">👤 Мій профіль</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">🚪 Вийти</a></li>
                     {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Увійти</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Реєстрація</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">🔑 Увійти</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">📝 Реєстрація</a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -61,12 +133,12 @@
         document.addEventListener("DOMContentLoaded", function () {
             const dropdownToggle = document.getElementById("categoryDropdown");
             const dropdownMenu = document.getElementById("categoryMenu");
-
+    
             dropdownToggle.addEventListener("click", function (event) {
                 event.preventDefault();
                 dropdownMenu.classList.toggle("show");
             });
-
+    
             // Закриття меню при кліку поза ним
             document.addEventListener("click", function (event) {
                 if (!dropdownToggle.contains(event.target) && !dropdownMenu.contains(event.target)) {
@@ -75,5 +147,56 @@
             });
         });
     </script>
+
+    <!-- JavaScript для темного режиму -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggle = document.getElementById("darkModeToggle");
+            const body = document.body;
+    
+            // Перевіряємо, чи темний режим вже був увімкнений
+            if (localStorage.getItem("darkMode") === "enabled") {
+                body.classList.add("dark-mode");
+                toggle.checked = true;
+            }
+    
+            // Вмикаємо/вимикаємо темний режим
+            toggle.addEventListener("change", function () {
+                if (toggle.checked) {
+                    body.classList.add("dark-mode");
+                    localStorage.setItem("darkMode", "enabled");
+                } else {
+                    body.classList.remove("dark-mode");
+                    localStorage.setItem("darkMode", "disabled");
+                }
+            });
+        });
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const searchResults = document.getElementById("searchResults");
+
+        searchInput.addEventListener("keyup", function () {
+            let query = searchInput.value.trim();
+
+            if (query.length > 1) {
+                fetch(`/search/?q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        searchResults.innerHTML = "";
+                        data.forEach(anime => {
+                            let item = document.createElement("div");
+                            item.innerHTML = `<a href="/anime/${anime.id}/">${anime.title}</a>`;
+                            searchResults.appendChild(item);
+                        });
+                    });
+            } else {
+                searchResults.innerHTML = "";
+            }
+        });
+    });
+</script>
 </body>
 </html>
