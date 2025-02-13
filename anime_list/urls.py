@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import anime_list, anime_detail, category_detail, toggle_favorite, favorite_anime, remove_favorite
+from .views import anime_list, anime_detail, category_detail, toggle_favorite, favorite_anime, remove_favorite, popular_anime, search_anime
 
 urlpatterns = [
     path('', anime_list, name='anime_list'),
@@ -9,5 +9,7 @@ urlpatterns = [
     path('favorite/<int:anime_id>/', toggle_favorite, name = 'toggle_favorite'),
     path('favorites/', favorite_anime, name='favorite_anime'),
     path('favorites/remove/<int:anime_id>/', remove_favorite, name='remove_favorite'),
+    path('popular/', popular_anime, name='popular_anime'),
+    path('search/', search_anime, name='search'),
 
 ]
