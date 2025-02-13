@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Популярні аніме{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center">🔥 Популярні аніме</h2>
+    <div class="popular-container">
+        {% for anime in animes %}
+            <div class="popular-anime-card">
+                <img src="{{ anime.image.url }}" alt="{{ anime.title }}">
+                <div class="card-body">
+                    <h5>{{ anime.title }}</h5>
+                    <a href="{% url 'anime_detail' anime.id %}" class="btn btn-primary">Дивитися</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
