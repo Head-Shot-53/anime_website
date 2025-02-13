@@ -3,6 +3,7 @@ from .models import Anime, Category, Rating, FavoriteAnime
 from .forms import SearchForm
 from django.core.paginator import Paginator
 from django.db.models import Avg
+from django.http import JsonResponse
 
 def anime_list(request):
     form = SearchForm(request.GET)
@@ -82,3 +83,15 @@ def remove_favorite(request, anime_id):
     anime = get_object_or_404(FavoriteAnime, user=request.user, anime_id=anime_id)
     anime.delete()
     return redirect('favorite_anime')
+
+def popular_anime(request):
+    animes = Anime.objects.order_by('-rating')[:10]  # Топ-10 аніме
+    return render(request, 'anime_list/popular.html', {'animes': animes})
+
+def search_anime(request):
+    query = request.GET.get('q', '')
+    results = Anime.objects.filter(title__icontains=query)[:5]  # Пошук по назві (до 5 результатів)
+    
+    data = [{"id": anime.id, "title": anime.title} for anime in results]
+    
+    return JsonResponse(data, safe=False)  # Повертаємо JSON
