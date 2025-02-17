@@ -31,12 +31,22 @@ class Rating(models.Model):
         return f"{self.user.username} rated {self.anime.title} with {self.score}"
     
 class FavoriteAnime(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    anime = models.ForeignKey(Anime, on_delete=models.CASCADE)
-    added_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="favorite_anime_list")  # Унікальний related_name
+    anime = models.ForeignKey("Anime", on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('user', 'anime') #користувач не моде додавати оне аніме двічі
+        unique_together = ('user', 'anime')  # Користувач не може додати одне аніме кілька разів
 
     def __str__(self):
-        return f'{self.user.username} -> {self.anime.title}'
+        return f"{self.user.username} - {self.anime.title}"
+
+class WatchHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="watch_history_list")  # Унікальний related_name
+    anime = models.ForeignKey("Anime", on_delete=models.CASCADE)
+    watched_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-watched_at']
+
+    def __str__(self):
+        return f"{self.user.username} переглянув {self.anime.title}"
