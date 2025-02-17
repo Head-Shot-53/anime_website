@@ -1,4 +1,8 @@
 from django import forms
 
 class SearchForm(forms.Form):
-    query = forms.CharField(max_length=255, label= 'Пошук')
+   query = forms.CharField(
+        required=False,  
+        label="",  
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '🔍 Введіть назву аніме...'})
+    )
