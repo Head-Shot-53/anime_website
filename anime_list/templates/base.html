@@ -13,60 +13,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-    <style>
-        /* Базові стилі */
-        html, body {
-            height: 100%;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Темний режим */
-        .dark-mode {
-            background-color: #121212 !important;
-            color: #ffffff !important;
-        }
-
-        .dark-mode .container,
-        .dark-mode .navbar, 
-        .dark-mode .dropdown-menu, 
-        .dark-mode .card {
-            background-color: #1e1e1e !important;
-            border-color: #333 !important;
-        }
-
-        .dark-mode .navbar-light .navbar-nav .nav-link,
-        .dark-mode .dropdown-item {
-            color: #ffffff !important;
-        }
-
-        .dark-mode .dropdown-item:hover {
-            background-color: #333 !important;
-        }
-
-        .dark-mode .btn {
-            background-color: #333 !important;
-            color: #fff !important;
-            border: 1px solid #555 !important;
-        }
-
-        .dark-mode .btn:hover {
-            background-color: #444 !important;
-        }
-
-        /* Темний скролбар */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        .dark-mode ::-webkit-scrollbar {
-            background-color: #1e1e1e !important;
-        }
-
-        .dark-mode ::-webkit-scrollbar-thumb {
-            background-color: #555 !important;
-            border-radius: 5px !important;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -95,13 +41,13 @@
                     <li class="nav-item"><a class="nav-link" href="{% url 'popular_anime' %}">🔥 Популярні</a></li>
         
                     <!-- Пошук -->
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <form class="d-flex" action="{% url 'search' %}" method="GET">
                             <input id="searchInput" class="form-control me-2" type="search" name="q" placeholder="🔍 Пошук аніме..." aria-label="Search">
                             <button class="btn btn-outline-primary" type="submit">🔍</button>
                         </form>
-                        <div id="searchResults" class="search-dropdown"></div>  <!-- Контейнер для результатів -->
-                    </li>
+                        <div id="searchResults" class="search-dropdown"></div> 
+                    </li> -->
         
                     <!-- Темний режим -->
                     <div class="form-check form-switch position-fixed top-0 end-0 p-3">
