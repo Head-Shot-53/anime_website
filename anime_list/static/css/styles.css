@@ -1,13 +1,21 @@
-/* ========================= Головні стилі ========================= */
+/* ========================= 🌟 Глобальні стилі ========================= */
 
-/* Головний фон (градієнт) */
+/* Головний фон */
 body {
-    background: linear-gradient(to bottom, #f5f7fa, #c3cfe2); /* Градієнтний фон */
+    background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
     color: #333;
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Контейнер */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
 }
 
 /* ========================= Заголовки ========================= */
@@ -108,21 +116,20 @@ a:hover {
 /* Стилі для навігаційної панелі */
 .navbar {
     background: linear-gradient(to right, #6a11cb, #2575fc);
-    padding: 20px;
+    padding: 15px 20px;
     text-align: center;
-    border-radius: 0 0 20px 20px;
+    border-radius: 0 0 15px 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Посилання в навігаційній панелі */
+/* Посилання в навігації */
 .navbar a {
     color: white;
     font-size: 18px;
-    margin: 0 20px;
+    margin: 0 15px;
     transition: color 0.3s;
 }
 
-/* Посилання в навігації при наведенні */
 .navbar a:hover {
     color: #ffdd57;
 }
@@ -151,7 +158,7 @@ a:hover {
     background-color: #6a11cb;
 }
 
-/* ========================= Декоративні анімації ========================= */
+/* ========================= 🎭 Анімація ========================= */
 
 /* Анімація для елементів */
 @keyframes floating {
@@ -295,55 +302,100 @@ form button {
 
 
 
-/* ========================= 🌙 Темний режим ========================= */
+/* ========================= 🎨 Темний режим (повністю на всю сторінку) ========================= */
+
 .dark-mode {
-    background-color: #121212;
-    color: #ffffff;
+    background: linear-gradient(to bottom, #121212, #1a1a1a) !important;
+    color: #e0e0e0 !important; /* Світліший текст */
 }
 
-/* Карточки */
-.dark-mode .card {
-    background-color: #1e1e1e;
-    border-color: #333;
-    color: #fff;
+/* Темний режим – Навігація */
+.dark-mode .navbar {
+    background: linear-gradient(to right, #1a1a1a, #2c2c2c) !important;
+    border-color: #555 !important;
 }
 
-/* Кнопки */
-.dark-mode .btn-primary {
-    background-color: #4a90e2;
-    border-color: #4a90e2;
-}
-
-.dark-mode .btn-danger {
-    background-color: #e74c3c;
-    border-color: #e74c3c;
-}
-
-/* Навігація */
-.dark-mode .navbar, 
+/* Темний режим – Випадаючі меню */
 .dark-mode .dropdown-menu {
-    background-color: #1e1e1e !important;
-    border-color: #333 !important;
+    background: linear-gradient(to right, #1a1a1a, #2c2c2c) !important;
+    border-color: #555 !important;
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.15);
 }
 
-.dark-mode .navbar a,
+/* Темний режим – Елементи меню */
 .dark-mode .dropdown-item {
-    color: #ffffff !important;
+    color: #f0f0f0 !important; /* Яскравіший текст */
 }
 
 .dark-mode .dropdown-item:hover {
+    background: linear-gradient(to right, #4a90e2, #6a11cb) !important;
+    color: #ffffff !important;
+}
+
+/* Темний режим – Карточки */
+.dark-mode .card,
+.dark-mode .anime-item,
+.dark-mode .popular-anime-card {
+    background-color: #1a1a1a !important;
+    border-color: #444 !important;
+    color: #f5f5f5 !important; /* Більш білий текст */
+}
+
+/* Темний режим – Кнопки */
+.dark-mode .btn {
     background-color: #333 !important;
+    color: #ffffff !important;
+    border: 1px solid #666 !important;
 }
 
-/* Темний скролбар */
-.dark-mode ::-webkit-scrollbar {
-    background-color: #1e1e1e !important;
+.dark-mode .btn:hover {
+    background-color: #4a90e2 !important;
+    border-color: #4a90e2 !important;
 }
 
-.dark-mode ::-webkit-scrollbar-thumb {
-    background-color: #555 !important;
-    border-radius: 5px !important;
+/* Темний режим – Поля вводу */
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #666;
 }
+
+/* Темний режим – Посилання */
+.dark-mode a {
+    color: #4a90e2 !important;
+    font-weight: bold;
+}
+
+.dark-mode a:hover {
+    color: #6a11cb !important;
+    text-decoration: underline;
+}
+
+/* Темний режим – Заголовки */
+.dark-mode h1, 
+.dark-mode h2, 
+.dark-mode h3, 
+.dark-mode h5 {
+    color: #ffffff !important;
+    font-weight: bold;
+}
+
+/* Темний режим – Основний текст */
+.dark-mode p, 
+.dark-mode span {
+    color: #d0d0d0 !important; /* Світліший текст */
+}
+
+/* Темний режим – Тіні для кращої видимості */
+.dark-mode .card,
+.dark-mode .anime-item,
+.dark-mode .popular-anime-card {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+
 /* ========================= 🎬 Популярні аніме (Сторінка) ========================= */
 .popular-container {
     display: flex;
@@ -409,4 +461,222 @@ form button {
     font-size: 14px;
     padding: 8px 0;
     margin-top: 8px;
+}
+
+/* ========================= 📱 Адаптація для мобільних ========================= */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 10px;
+    }
+
+    .anime-container {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+
+    .popular-anime-card {
+        width: 170px;
+    }
+}
+
+/* ====================== 📌 СТИЛІ ДЛЯ ПРОФІЛЮ ====================== */
+
+/* Контейнер профілю */
+.profile-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Заголовок профілю */
+.profile-header {
+    background: linear-gradient(to right, #4a90e2, #6a11cb);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Аватар */
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    margin-bottom: 15px;
+}
+
+/* Роздільники */
+.divider {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 30px 0;
+}
+
+/* Секція з контентом */
+.section {
+    padding: 15px;
+}
+
+/* ====================== 🎬 СТИЛІ ДЛЯ СПИСКУ АНІМЕ ====================== */
+
+/* Список аніме */
+.anime-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Карточка аніме */
+.anime-card {
+    background-color: white;
+    border-radius: 12px;
+    width: 180px;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Зображення аніме */
+.anime-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Інформація про аніме */
+.anime-info {
+    padding: 10px;
+}
+
+
+.dark-mode .profile-header {
+    background: linear-gradient(to right, #1e1e1e, #2c2c2c);
+    color: #ffffff;
+}
+
+.dark-mode .anime-card {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    color: #ffffff;
+}
+
+.dark-mode .anime-info h5 {
+    color: #ffffff;
+}
+
+.dark-mode .anime-card:hover {
+    box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .divider {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== 📌 СТИЛІ ДЛЯ ДЕТАЛЬНОЇ СТОРІНКИ АНІМЕ ===== */
+.anime-detail-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Стилі для заголовка */
+.anime-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 📌 Опис */
+.anime-description {
+    font-size: 16px;
+    color: #444;
+}
+
+/* 📌 Зображення аніме */
+.anime-detail-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* 📌 Оцінка */
+.rating-form select {
+    width: 100px;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* 📌 Кнопка улюбленого */
+.favorite-form button {
+    font-size: 16px;
+    padding: 8px 20px;
+    border-radius: 6px;
+}
+
+/* ===== 📌 ТЕМНИЙ РЕЖИМ ===== */
+.dark-mode .anime-detail-container {
+    background: #1e1e1e;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .anime-title {
+    color: #fff;
+}
+
+.dark-mode .anime-description {
+    color: #ddd;
+}
+
+.dark-mode .anime-detail-img {
+    border: 2px solid #444;
+}
+
+.dark-mode .favorite-form button {
+    background-color: #ff3d00;
+    border: none;
+}
+
+.dark-mode .rating-form select {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* =========================⭐ Стилі для рейтингу у вигляді зірок ============================*/
+.star-rating {
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    font-size: 30px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating input:checked ~ label {
+    color: #f1c40f;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f1c40f;
 }
