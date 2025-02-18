@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}⏳ Останні перегляди - AniStream{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>⏳ Останні перегляди</h2>
+
+    {% if watched_animes %}
+        <div class="anime-container">
+            {% for anime in watched_animes %}
+                <div class="anime-item">
+                    <img src="{{ anime.image.url }}" class="anime-icon" alt="{{ anime.title }}">
+                    <h5>{{ anime.title }}</h5>
+                    <a href="{% url 'anime_detail' anime.id %}" class="btn btn-primary">🎥 Дивитися</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Ви ще не переглядали аніме.</p>
+    {% endif %}
+</div>
+{% endblock %}
