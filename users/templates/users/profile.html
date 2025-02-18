@@ -1,25 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Профіль користувача - AniStream{% endblock %}
+{% block title %}👤 Профіль - AniStream{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="text-center mb-4">Профіль користувача</h2>
+<div class="container mt-5 profile-container">
+    <!-- Заголовок профілю -->
+    <div class="profile-header text-center">
+        <img src="{% static 'images/default-avatar.png' %}" class="profile-avatar" alt="Avatar">
+        <h2>{{ user.username }}</h2>
+        <p class="text-muted">📧 {{ user.email }}</p>
+        <p class="text-muted">📅 Дата реєстрації: <strong>{{ user.date_joined|date:"d M Y" }}</strong></p>
+        <a href="{% url 'logout' %}" class="btn btn-danger mt-3">🚪 Вийти</a>
+    </div>
 
-    <div class="card mx-auto shadow-lg border-0 rounded text-center" style="max-width: 450px; background: #f8f9fa;">
-        <div class="card-body">
-            <h4 class="card-title text-primary fw-bold">Привіт, {{ user.username }}!</h4>
-            <p class="card-text text-muted">Вітаємо у вашому профілі.</p>
+    <hr class="divider">
 
-            <div class="d-grid gap-3 mt-3">
-                <a href="{% url 'favorite_anime' %}" class="btn btn-outline-primary">
-                    <i class="fas fa-heart"></i> Мої улюблені аніме
-                </a>
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger">
-                    <i class="fas fa-sign-out-alt"></i> Вийти
-                </a>
+    <!-- 🔹 Улюблені аніме -->
+    <div class="section">
+        <h3>💖 Улюблені аніме</h3>
+        <p><a href="{% url 'favorite_anime' %}" class="btn btn-outline-primary">📌 Переглянути всі улюблені</a></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ⏳ Останні переглянуті аніме -->
+    <div class="section">
+        <h3>⏳ Останні перегляди</h3>
+        <p><a href="{% url 'watch_history' %}" class="btn btn-outline-info">📜 Переглянути всю історію</a></p> <!-- 🔥 Додано посилання на історію переглядів -->
+        
+        {% if recent_animes %}
+            <div class="anime-list">
+                {% for anime in recent_animes %}
+                    <div class="anime-card">
+                        <img src="{{ anime.image.url }}" class="anime-img" alt="{{ anime.title }}">
+                        <div class="anime-info">
+                            <h5>{{ anime.title }}</h5>
+                            <a href="{% url 'anime_detail' anime.id %}" class="btn btn-primary">🎥 Дивитися</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-        </div>
+        {% else %}
+            <p class="text-muted">😔 Ви ще не переглядали аніме.</p>
+        {% endif %}
+    </div>
+
+    <hr class="divider">
+
+    <!-- 🔥 Рекомендовані аніме -->
+    <div class="section">
+        <h3>🔥 Рекомендовані аніме</h3>
+        <p><a href="{% url 'recommendations' %}" class="btn btn-outline-warning">🔍 Переглянути рекомендації</a></p>
     </div>
 </div>
 {% endblock %}
