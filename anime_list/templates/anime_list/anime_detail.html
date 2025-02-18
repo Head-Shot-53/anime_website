@@ -1,75 +1,100 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ anime.title }} - Деталі{% endblock %}
 
 {% block content %}
-    <h1 class="my-4">{{ anime.title }}</h1>
-    
-    <div class="container anime-container">
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                {% if anime.image %}
-                    <img src="{{ anime.image.url }}" class="img-fluid" alt="{{ anime.title }}">
-                {% endif %}
-            </div>
-            <div class="col-md-8">
-                <p><strong>Рік випуску:</strong> {% if anime.release_year %}{{ anime.release_year }}{% else %}Немає даних{% endif %}</p>
-                <p><strong>Жанри:</strong> 
-                    {% for category in anime.categories.all %}
-                        {{ category.name }}{% if not forloop.last %}, {% endif %}
-                    {% empty %}
-                        Немає даних
-                    {% endfor %}
-                </p>
-                <p><strong>Кількість серій:</strong>{% if anime.number_of_series %}{{ anime.number_of_series}}{% else %}Не вказано{% endif %}</p>
-                <p><strong>Опис:</strong> {% if anime.description %}{{ anime.description }}{% else %}Немає опису{% endif %}</p>
-                <p><strong>Середній рейтинг:</strong> 
-                    {% if average_rating %}
-                        {{ average_rating|floatformat:2 }}
-                    {% else %}
-                        Оцінок ще немає
-                    {% endif %}
-                </p>
+<div class="container mt-4 anime-detail-container">
+    <div class="row">
+        <!-- Зображення аніме -->
+        <div class="col-md-4 text-center">
+            {% if anime.image %}
+                <img src="{{ anime.image.url }}" class="anime-detail-img img-fluid rounded shadow-lg" alt="{{ anime.title }}">
+            {% else %}
+                <img src="{% static 'images/default-anime.jpg' %}" class="anime-detail-img img-fluid rounded shadow-lg" alt="No image">
+            {% endif %}
+        </div>
 
-                <!-- Форма для оцінки -->
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="score" class="form-label">Ваша оцінка:</label>
-                        <select name="score" id="score" class="form-select">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-success">Відправити оцінку</button>
-                </form>
+        <!-- Інформація про аніме -->
+        <div class="col-md-8">
+            <h1 class="anime-title">{{ anime.title }}</h1>
+            <p class="text-muted"><i class="fas fa-calendar-alt"></i> <strong>Рік випуску:</strong> {{ anime.release_year|default:"Немає даних" }}</p>
+            
+            <p><i class="fas fa-layer-group"></i> <strong>Жанри:</strong> 
+                {% for category in anime.categories.all %}
+                    <span class="badge bg-primary">{{ category.name }}</span>
+                {% empty %}
+                    <span class="text-muted">Немає даних</span>
+                {% endfor %}
+            </p>
 
-                <!-- Додавання в улюблене -->
-                {% if user.is_authenticated %}
-                    <form action="{% url 'toggle_favorite' anime.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-warning">
-                            {% if anime in user.favoriteanime_set.all %}
-                                Видалити з улюблених
-                            {% else %}
-                                Додати в улюблене ❤️
-                            {% endif %}
-                        </button>
-                    </form>
+            <p><i class="fas fa-film"></i> <strong>Кількість серій:</strong> {{ anime.number_of_series|default:"Не вказано" }}</p>
+            
+            <p><i class="fas fa-info-circle"></i> <strong>Опис:</strong> 
+                <span class="anime-description">{{ anime.description|default:"Немає опису" }}</span>
+            </p>
+
+            <p><i class="fas fa-star"></i> <strong>Середній рейтинг:</strong> 
+                {% if average_rating %}
+                    <span class="badge bg-warning text-dark">{{ average_rating|floatformat:2 }} ⭐</span>
                 {% else %}
-                    <p><a href="{% url 'login' %}">Увійдіть</a>, щоб додавати аніме в улюблене.</p>
+                    <span class="text-muted">Оцінок ще немає</span>
                 {% endif %}
+            </p>
 
-            </div>
+            <!-- Форма для оцінки (зірочки) -->
+            {% if user.is_authenticated %}
+                <form method="post" id="ratingForm">
+                    {% csrf_token %}
+                    <div class="star-rating">
+                        <input type="radio" name="score" value="10" id="star10"><label for="star10">★</label>
+                        <input type="radio" name="score" value="9" id="star9"><label for="star9">★</label>
+                        <input type="radio" name="score" value="8" id="star8"><label for="star8">★</label>
+                        <input type="radio" name="score" value="7" id="star7"><label for="star7">★</label>
+                        <input type="radio" name="score" value="6" id="star6"><label for="star6">★</label>
+                        <input type="radio" name="score" value="5" id="star5"><label for="star5">★</label>
+                        <input type="radio" name="score" value="4" id="star4"><label for="star4">★</label>
+                        <input type="radio" name="score" value="3" id="star3"><label for="star3">★</label>
+                        <input type="radio" name="score" value="2" id="star2"><label for="star2">★</label>
+                        <input type="radio" name="score" value="1" id="star1"><label for="star1">★</label>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Відправити оцінку</button> -->
+                </form>
+            {% else %}
+                <p class="text-muted"><a href="{% url 'login' %}">🔑 Увійдіть</a>, щоб оцінити аніме.</p>
+            {% endif %}
+
+            <!-- Додавання в улюблене -->
+            {% if user.is_authenticated %}
+                <form action="{% url 'toggle_favorite' anime.id %}" method="post" class="favorite-form mt-3">
+                    {% csrf_token %}
+                    <button type="submit" class="btn {% if anime in user.favoriteanime_set.all %}btn-danger{% else %}btn-warning{% endif %}">
+                        {% if anime in user.favoriteanime_set.all %}
+                            ❌ Видалити з улюблених
+                        {% else %}
+                            ❤️ Додати в улюблене
+                        {% endif %}
+                    </button>
+                </form>
+            {% endif %}
         </div>
     </div>
 
-    <!-- Кнопка для повернення до списку -->
-    <a href="{% url 'anime_list' %}" class="btn btn-secondary mt-4">🔙 Назад до списку</a>
+    <!-- Кнопка повернення -->
+    <div class="text-center mt-4">
+        <a href="{% url 'anime_list' %}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Назад до списку</a>
+    </div>
+</div>
+
+<!-- JavaScript для зіркового рейтингу -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const stars = document.querySelectorAll('.star-rating input');
+        stars.forEach(star => {
+            star.addEventListener('change', function() {
+                document.getElementById("ratingForm").submit();
+            });
+        });
+    });
+</script>
 {% endblock %}
